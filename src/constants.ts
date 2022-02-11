@@ -4,9 +4,9 @@ import JSBI from 'jsbi'
 export type BigintIsh = JSBI | string | number
 
 export enum ChainId {
-    MAINNET = 11111,
-    NILE = 201912292,
-    SHASTA = 1
+  MAINNET = 11111,
+  NILE = 201912292,
+  SHASTA = 1
 }
 
 export enum TradeType {

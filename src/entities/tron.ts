@@ -1,11 +1,11 @@
-import invariant from "tiny-invariant";
-import { Currency, NativeCurrency, Token, } from ".";
-import { WTRX } from "./wtrx";
+import invariant from 'tiny-invariant'
+import { Currency, NativeCurrency, Token } from '.'
+import { WTRX } from './wtrx'
 
 export class Tron extends NativeCurrency {
-    protected constructor(chainId: number) {
-        super(chainId, 6, 'TRX', 'Tron')
-    }
+  protected constructor(chainId: number) {
+    super(chainId, 6, 'TRX', 'Tron')
+  }
 
   public get wrapped(): Token {
     const wtrx = WTRX[this.chainId]
@@ -22,4 +22,4 @@ export class Tron extends NativeCurrency {
   public equals(other: Currency): boolean {
     return other.isNative && other.chainId === this.chainId
   }
-} 
+}
