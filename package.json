@@ -1,7 +1,7 @@
 {
   "name": "@intercroneswap/sdk-core",
   "license": "MIT",
-  "version": "0.0.3-unstable1",
+  "version": "0.0.3-unstable2",
   "description": "⚒️ An SDK for building applications on top of Uniswap V3",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

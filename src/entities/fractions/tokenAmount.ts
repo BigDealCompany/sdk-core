@@ -1,7 +1,7 @@
 import JSBI from 'jsbi'
 import invariant from 'tiny-invariant'
 import { CurrencyAmount } from '.'
-import { currencyEquals, Token } from '..'
+import { Token } from '..'
 import { BigintIsh } from '../..'
 
 export class TokenAmount extends CurrencyAmount {
