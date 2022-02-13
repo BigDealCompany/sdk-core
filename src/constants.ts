@@ -1,4 +1,5 @@
 import JSBI from 'jsbi'
+import { Currency } from '.'
 
 // exports for external consumption
 export type BigintIsh = JSBI | string | number
@@ -19,5 +20,7 @@ export enum Rounding {
   ROUND_HALF_UP,
   ROUND_UP
 }
+
+export const ETHER = Currency.ETHER;
 
 export const MaxUint256 = JSBI.BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')

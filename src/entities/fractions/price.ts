@@ -6,33 +6,14 @@ import { Currency } from '../currency'
 import { Fraction } from './fraction'
 import { CurrencyAmount } from './currencyAmount'
 
-export class Price<TBase extends Currency, TQuote extends Currency> extends Fraction {
-  public readonly baseCurrency: TBase // input i.e. denominator
-  public readonly quoteCurrency: TQuote // output i.e. numerator
+export class Price extends Fraction {
+  public readonly baseCurrency: Currency // input i.e. denominator
+  public readonly quoteCurrency: Currency // output i.e. numerator
   public readonly scalar: Fraction // used to adjust the raw fraction w/r/t the decimals of the {base,quote}Token
 
-  /**
-   * Construct a price, either with the base and quote currency amount, or the
-   * @param args
-   */
   public constructor(
-    ...args:
-      | [TBase, TQuote, BigintIsh, BigintIsh]
-      | [{ baseAmount: CurrencyAmount<TBase>; quoteAmount: CurrencyAmount<TQuote> }]
+    baseCurrency: Currency, quoteCurrency: Currency, denominator: BigintIsh, numerator: BigintIsh
   ) {
-    let baseCurrency: TBase, quoteCurrency: TQuote, denominator: BigintIsh, numerator: BigintIsh
-
-    if (args.length === 4) {
-      ;[baseCurrency, quoteCurrency, denominator, numerator] = args
-    } else {
-      const result = args[0].quoteAmount.divide(args[0].baseAmount)
-      ;[baseCurrency, quoteCurrency, denominator, numerator] = [
-        args[0].baseAmount.currency,
-        args[0].quoteAmount.currency,
-        result.denominator,
-        result.numerator
-      ]
-    }
     super(numerator, denominator)
 
     this.baseCurrency = baseCurrency
@@ -43,10 +24,18 @@ export class Price<TBase extends Currency, TQuote extends Currency> extends Frac
     )
   }
 
+  get raw(): Fraction {
+    return new Fraction(this.numerator, this.denominator);
+  }
+
+  get adjusted(): Fraction {
+    return this.asFraction.multiply(this.scalar);
+  }
+
   /**
    * Flip the price, switching the base and quote currency
    */
-  public invert(): Price<TQuote, TBase> {
+  public invert(): Price {
     return new Price(this.quoteCurrency, this.baseCurrency, this.numerator, this.denominator)
   }
 
@@ -54,7 +43,7 @@ export class Price<TBase extends Currency, TQuote extends Currency> extends Frac
    * Multiply the price by another price, returning a new price. The other price must have the same base currency as this price's quote currency
    * @param other the other price
    */
-  public multiply<TOtherQuote extends Currency>(other: Price<TQuote, TOtherQuote>): Price<TBase, TOtherQuote> {
+  public multiply(other: Price): Price {
     invariant(this.quoteCurrency.equals(other.baseCurrency), 'TOKEN')
     const fraction = super.multiply(other)
     return new Price(this.baseCurrency, other.quoteCurrency, fraction.denominator, fraction.numerator)
@@ -64,7 +53,7 @@ export class Price<TBase extends Currency, TQuote extends Currency> extends Frac
    * Return the amount of quote currency corresponding to a given amount of the base currency
    * @param currencyAmount the amount of base currency to quote against the price
    */
-  public quote(currencyAmount: CurrencyAmount<TBase>): CurrencyAmount<TQuote> {
+  public quote(currencyAmount: CurrencyAmount): CurrencyAmount {
     invariant(currencyAmount.currency.equals(this.baseCurrency), 'TOKEN')
     const result = super.multiply(currencyAmount)
     return CurrencyAmount.fromFractionalAmount(this.quoteCurrency, result.numerator, result.denominator)
