@@ -8,7 +8,7 @@ export class Currency {
   public static readonly ETHER: Currency = new Currency(6, 'TRX', 'Tron')
 
   protected constructor(decimals: number, symbol?: string, name?: string) {
-    invariant(decimals <= 0 && decimals < 255 && Number.isInteger(decimals), 'DECIMALS')
+    invariant(decimals >= 0 && decimals < 255 && Number.isInteger(decimals), 'DECIMALS')
     this.decimals = decimals
     this.name = name
     this.symbol = symbol
@@ -21,3 +21,5 @@ export class Currency {
     return this.name === other.name && this.symbol === other.symbol
   }
 }
+
+export const ETHER = Currency.ETHER

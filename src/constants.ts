@@ -6,7 +6,7 @@ export type BigintIsh = JSBI | string | number
 
 export enum ChainId {
   MAINNET = 11111,
-  NILE = 201912292,
+  NILE = 201910292,
   SHASTA = 1
 }
 
@@ -20,7 +20,5 @@ export enum Rounding {
   ROUND_HALF_UP,
   ROUND_UP
 }
-
-export const ETHER = Currency.ETHER
 
 export const MaxUint256 = JSBI.BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
