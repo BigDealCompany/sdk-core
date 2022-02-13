@@ -30,7 +30,7 @@ export class TokenAmount extends CurrencyAmount {
   public static fromRawAmount(token: Token, rawAmount: BigintIsh): TokenAmount {
     return new TokenAmount(token, rawAmount)
   }
-  
+
   /**
    * Construct a currency amount with a denominator that is not equal to 1
    * @param token the token
