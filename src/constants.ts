@@ -21,6 +21,6 @@ export enum Rounding {
   ROUND_UP
 }
 
-export const ETHER = Currency.ETHER;
+export const ETHER = Currency.ETHER
 
 export const MaxUint256 = JSBI.BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')

@@ -7,7 +7,7 @@ import { Currency } from './currency'
  * Represents an ERC20 token with a unique address and some metadata.
  */
 export class Token extends Currency {
-  public readonly chainId: ChainId;
+  public readonly chainId: ChainId
   /**
    * The contract address on the chain on which this token lives
    */
@@ -15,7 +15,7 @@ export class Token extends Currency {
 
   public constructor(chainId: ChainId, address: string, decimals: number, symbol?: string, name?: string) {
     super(decimals, symbol, name)
-    this.chainId = chainId;
+    this.chainId = chainId
     this.address = validateAndParseAddress(address)
   }
 
@@ -31,13 +31,11 @@ export class Token extends Currency {
     return this.address.toLowerCase() < other.address.toLowerCase()
   }
 
-  public equals(other:Token): boolean {
-    if(this === other) {
-      return true;
+  public equals(other: Token): boolean {
+    if (this === other) {
+      return true
     }
-    return this.chainId === other.chainId && this.address === other.address;
-    
-    
+    return this.chainId === other.chainId && this.address === other.address
   }
 
   /**
@@ -48,20 +46,20 @@ export class Token extends Currency {
   }
 }
 
-export function currencyEquals(currencyA:Currency, currencyB: Currency) {
-if (currencyA instanceof Token && currencyB instanceof Token) {
-    return currencyA.equals(currencyB);
+export function currencyEquals(currencyA: Currency, currencyB: Currency) {
+  if (currencyA instanceof Token && currencyB instanceof Token) {
+    return currencyA.equals(currencyB)
   } else if (currencyA instanceof Token) {
-    return false;
+    return false
   } else if (currencyB instanceof Token) {
-    return false;
+    return false
   } else {
-    return currencyA === currencyB;
+    return currencyA === currencyB
   }
 }
 
-export const WETH: { [chainId: number]: Token} = {
+export const WETH: { [chainId: number]: Token } = {
   [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0x891CDB91D149F23B1A45D9C5CA78A88D0CB44C18', 6, 'WTRX', 'Wrapped TRX'),
   [ChainId.NILE]: new Token(ChainId.MAINNET, '0x8f44113A985076431b77f6078f0929f949cB8836', 6, 'WTRX', 'Wrapped TRX'),
-  [ChainId.SHASTA]: new Token(ChainId.MAINNET, '0xB970B980C520EC3F49921C2727BFA6DE79E7226A', 6, 'WTRX', 'Wrapped TRX'),
+  [ChainId.SHASTA]: new Token(ChainId.MAINNET, '0xB970B980C520EC3F49921C2727BFA6DE79E7226A', 6, 'WTRX', 'Wrapped TRX')
 }

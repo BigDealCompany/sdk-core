@@ -10,14 +10,12 @@ import { BigintIsh, Rounding, MaxUint256, ETHER } from '../../constants'
 const Big = toFormat(_Big)
 
 export class CurrencyAmount extends Fraction {
-  public readonly currency: Currency;
+  public readonly currency: Currency
   public readonly decimalScale: JSBI
 
-  
-  public get raw() : JSBI {
-    return this.numerator;
+  public get raw(): JSBI {
+    return this.numerator
   }
-  
 
   static ether(amount: BigintIsh): CurrencyAmount {
     return new CurrencyAmount(ETHER, amount)
@@ -38,11 +36,7 @@ export class CurrencyAmount extends Fraction {
    * @param numerator the numerator of the fractional token amount
    * @param denominator the denominator of the fractional token amount
    */
-  public static fromFractionalAmount(
-    currency: Currency,
-    numerator: BigintIsh,
-    denominator: BigintIsh
-  ): CurrencyAmount {
+  public static fromFractionalAmount(currency: Currency, numerator: BigintIsh, denominator: BigintIsh): CurrencyAmount {
     return new CurrencyAmount(currency, numerator, denominator)
   }
 

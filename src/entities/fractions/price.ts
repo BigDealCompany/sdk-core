@@ -11,9 +11,7 @@ export class Price extends Fraction {
   public readonly quoteCurrency: Currency // output i.e. numerator
   public readonly scalar: Fraction // used to adjust the raw fraction w/r/t the decimals of the {base,quote}Token
 
-  public constructor(
-    baseCurrency: Currency, quoteCurrency: Currency, denominator: BigintIsh, numerator: BigintIsh
-  ) {
+  public constructor(baseCurrency: Currency, quoteCurrency: Currency, denominator: BigintIsh, numerator: BigintIsh) {
     super(numerator, denominator)
 
     this.baseCurrency = baseCurrency
@@ -25,11 +23,11 @@ export class Price extends Fraction {
   }
 
   get raw(): Fraction {
-    return new Fraction(this.numerator, this.denominator);
+    return new Fraction(this.numerator, this.denominator)
   }
 
   get adjusted(): Fraction {
-    return this.asFraction.multiply(this.scalar);
+    return this.asFraction.multiply(this.scalar)
   }
 
   /**
