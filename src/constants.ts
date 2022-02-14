@@ -1,5 +1,4 @@
 import JSBI from 'jsbi'
-import { Currency } from '.'
 
 // exports for external consumption
 export type BigintIsh = JSBI | string | number
