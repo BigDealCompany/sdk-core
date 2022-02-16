@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, Percent, Price } from '../entities'
+import { CurrencyAmount, Percent, Price } from '../entities'
 
 /**
  * Returns the percent difference between the mid price and the execution price, i.e. price impact.
@@ -6,10 +6,10 @@ import { Currency, CurrencyAmount, Percent, Price } from '../entities'
  * @param inputAmount the input amount of the trade
  * @param outputAmount the output amount of the trade
  */
-export function computePriceImpact<TBase extends Currency, TQuote extends Currency>(
-  midPrice: Price<TBase, TQuote>,
-  inputAmount: CurrencyAmount<TBase>,
-  outputAmount: CurrencyAmount<TQuote>
+export function computePriceImpact(
+  midPrice: Price,
+  inputAmount: CurrencyAmount,
+  outputAmount: CurrencyAmount
 ): Percent {
   const quotedOutputAmount = midPrice.quote(inputAmount)
   // calculate price impact := (exactQuote - outputAmount) / exactQuote

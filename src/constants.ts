@@ -3,6 +3,12 @@ import JSBI from 'jsbi'
 // exports for external consumption
 export type BigintIsh = JSBI | string | number
 
+export enum ChainId {
+  MAINNET = 11111,
+  NILE = 201910292,
+  SHASTA = 1
+}
+
 export enum TradeType {
   EXACT_INPUT,
   EXACT_OUTPUT
