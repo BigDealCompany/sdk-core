@@ -5,6 +5,8 @@ import { BigintIsh, Rounding } from '../../constants'
 import { Currency } from '../currency'
 import { Fraction } from './fraction'
 import { CurrencyAmount } from './currencyAmount'
+import { Token } from '..'
+import { TokenAmount } from '.'
 
 export class Price extends Fraction {
   public readonly baseCurrency: Currency // input i.e. denominator
@@ -54,6 +56,9 @@ export class Price extends Fraction {
   public quote(currencyAmount: CurrencyAmount): CurrencyAmount {
     invariant(currencyAmount.currency.equals(this.baseCurrency), 'TOKEN')
     const result = super.multiply(currencyAmount)
+    if (this.quoteCurrency instanceof Token) {
+      return TokenAmount.fromFractionalAmount(this.quoteCurrency, result.numerator, result.denominator)
+    }
     return CurrencyAmount.fromFractionalAmount(this.quoteCurrency, result.numerator, result.denominator)
   }
 
